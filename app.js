@@ -1,7 +1,18 @@
 import express from "express";
+import mongoose from "mongoose";
+import * as dotenv from "dotenv";
+
+dotenv.config();
+
+mongoose
+  .connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("Connexion à la base de donée réussie"))
+  .catch(() => console.log("Connexion échouée"));
 
 const app = express();
-
 app.use(express.json());
 
 app.use((req, res, next) => {
