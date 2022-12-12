@@ -66,4 +66,11 @@ app.put("/api/stuff/:id", (req, res, next) => {
     .catch((error) => res.status(404).json({ error }));
 });
 
+app.delete("/api/stuff/:id", (req, res, next) => {
+  const thingToDelete = req.params.id;
+  Thing.deleteOne({ _id: thingToDelete })
+    .then(() => res.status(200).json({ message: "Objet supprimé !" }))
+    .catch((error) => res.status(404).json({ error }));
+});
+
 module.exports = app;
