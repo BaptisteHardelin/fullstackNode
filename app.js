@@ -1,10 +1,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
 const Thing = require("./models/Thing");
 
 dotenv.config();
+
+mongoose.set("strictQuery", true);
 
 mongoose
   .connect(process.env.MONGO_URI, {
@@ -52,9 +53,16 @@ app.get("/api/stuff", (req, res, next) => {
 });
 
 app.get("/api/stuff/:id", (req, res, next) => {
-  const id_thing = req.params.id;
-  Thing.findById({ _id: id_thing })
+  const thingToGet = req.params.id;
+  Thing.findById({ _id: thingToGet })
     .then((thing) => res.status(200).json(thing))
+    .catch((error) => res.status(404).json({ error }));
+});
+
+app.put("/api/stuff/:id", (req, res, next) => {
+  const thingToUpdate = req.params.id;
+  Thing.updateOne({ _id: thingToUpdate }, { ...req.body, _id: req.params.id })
+    .then(() => res.status(200).json({ message: "Objet modifié !" }))
     .catch((error) => res.status(404).json({ error }));
 });
 
