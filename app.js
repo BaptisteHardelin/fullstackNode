@@ -51,4 +51,11 @@ app.get("/api/stuff", (req, res, next) => {
     );
 });
 
+app.get("/api/stuff/:id", (req, res, next) => {
+  const id_thing = req.params.id;
+  Thing.findById({ _id: id_thing })
+    .then((thing) => res.status(200).json(thing))
+    .catch((error) => res.status(404).json({ error }));
+});
+
 module.exports = app;
