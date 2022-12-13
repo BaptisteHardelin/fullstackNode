@@ -2,11 +2,7 @@ const Thing = require("../models/Thing");
 
 exports.createThing = (req, res, next) => {
   const thing = new Thing({
-    title: req.body.title,
-    description: req.body.description,
-    imageUrl: req.body.imageUrl,
-    price: req.body.price,
-    userId: req.body.userId,
+    ...req.body,
   });
   thing
     .save()
@@ -17,7 +13,7 @@ exports.createThing = (req, res, next) => {
     })
     .catch((error) => {
       res.status(400).json({
-        error: error,
+        error,
       });
     });
 };
@@ -29,7 +25,7 @@ exports.getAllStuff = (req, res, next) => {
     })
     .catch((error) => {
       res.status(400).json({
-        error: error,
+        error,
       });
     });
 };
@@ -43,7 +39,7 @@ exports.getOneStuff = (req, res, next) => {
     })
     .catch((error) => {
       res.status(404).json({
-        error: error,
+        error,
       });
     });
 };
@@ -66,7 +62,7 @@ exports.updateOneStuff = (req, res, next) => {
     })
     .catch((error) => {
       res.status(400).json({
-        error: error,
+        error,
       });
     });
 };
@@ -80,7 +76,7 @@ exports.deleteOneStuff = (req, res, next) => {
     })
     .catch((error) => {
       res.status(400).json({
-        error: error,
+        error,
       });
     });
 };
