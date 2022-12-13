@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 
 const stuffRouter = require("./routes/stuff");
+const userRouter = require("./routes/user");
 
 dotenv.config();
 
@@ -33,5 +34,6 @@ app.use((req, res, next) => {
 });
 
 app.use("/api/stuff", stuffRouter);
+app.use("/api/auth", userRouter);
 
 module.exports = app;
