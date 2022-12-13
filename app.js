@@ -1,3 +1,4 @@
+const http = require("http");
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
@@ -35,5 +36,6 @@ app.use((req, res, next) => {
 
 app.use("/api/stuff", stuffRouter);
 app.use("/api/auth", userRouter);
+app.use("/images", express.static(path.join(__dirname, "images")));
 
 module.exports = app;
